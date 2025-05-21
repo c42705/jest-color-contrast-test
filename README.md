@@ -1,46 +1,98 @@
-# Getting Started with Create React App
+# Color Contrast Accessibility Testing with Jest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project demonstrates how to test color contrast accessibility in React applications using Jest without relying on the canvas dependency. It uses Material UI for the UI components and implements WCAG 2.0 AA standards for color contrast.
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+This project includes:
 
-### `npm start`
+1. A simple React application with Material UI components
+2. A login form that can toggle between accessible and inaccessible color schemes
+3. Utility functions for calculating color contrast ratios
+4. Jest tests that verify color contrast compliance with WCAG standards
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+- Node.js (v14 or higher)
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. Clone the repository
+2. Install dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Running the Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To start the development server:
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running Tests
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To run the tests:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm test
+```
 
-## Learn More
+## Testing Approach
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project demonstrates how to test color contrast accessibility without relying on canvas dependencies, which are often problematic in Jest environments.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Key Components
+
+1. **Color Contrast Utilities** (`src/utils/colorContrast.ts`):
+   - Functions for calculating color contrast ratios
+   - Utilities for checking WCAG compliance levels (AA, AAA)
+   - Helper functions for color format conversion
+
+2. **Jest Tests** (`src/utils/colorContrast.test.ts` and `src/components/LoginForm.test.ts`):
+   - Unit tests for color contrast calculation functions
+   - Component tests that verify color contrast of rendered elements
+   - Tests for both accessible and inaccessible versions
+
+3. **Jest-Axe Integration** (`src/setupTests.ts`):
+   - Integration with jest-axe for general accessibility testing
+   - Note: jest-axe doesn't check color contrast in JSDOM environments
+
+### Testing Strategy
+
+The testing approach uses two complementary methods:
+
+1. **Custom Color Contrast Calculation**:
+   - Extract computed styles from rendered components
+   - Calculate contrast ratios using the WCAG formula
+   - Verify against WCAG AA and AAA standards
+
+2. **Jest-Axe for General Accessibility**:
+   - Use jest-axe for other accessibility checks
+   - Demonstrate how jest-axe would normally catch issues
+
+## WCAG Color Contrast Standards
+
+The Web Content Accessibility Guidelines (WCAG) 2.0 define the following contrast requirements:
+
+| Level | Normal Text | Large Text |
+|-------|------------|------------|
+| AA    | 4.5:1      | 3:1        |
+| AAA   | 7:1        | 4.5:1      |
+
+- **Normal text**: Less than 18 point (or 14 point bold)
+- **Large text**: At least 18 point (or 14 point bold)
+
+## Resources
+
+- [WCAG 2.0 Contrast Guidelines](https://www.w3.org/TR/WCAG20/#visual-audio-contrast)
+- [Understanding WCAG 2.0 Contrast Ratio](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
+- [Jest-Axe Documentation](https://github.com/nickcolley/jest-axe)
+- [Material UI Documentation](https://mui.com/)
